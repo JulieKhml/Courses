@@ -2,11 +2,10 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="shortcut icon" href="./files/images/logo.png"> -->
     <link rel="stylesheet" href="./css/style.css">
     <script type="text/javascript" src="js/JQuery.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="js/profile.js"></script>
     <title></title>
   </head>
   <body>
@@ -28,15 +27,21 @@
       </div>
     </header>
     <div class="content">
-      asdasdsadasdsadfdsafdsafdsafdsaf <br>
-      asdasdsadasdsadfdsafdsafdsafdsafadsf<br>
-      asdasdsadasdsadfdsafdsafdsafdsaffadsf<br>
-      asdasdsadasdsadfdsafdsafdsafdsaffadsfdsaf<br>
-      asdasdsadasdsadfdsafdsafdsafdsafdsafdsa<br>
-      asdasdsadasdsadfdsafdsafdsafdsaffsadfdsa<br>
-      asdasdsadasdsadfdsafdsafdsafdsafdsafdsadsaf<br>
-      asdasdsadasdsadfdsafdsafdsafdsaff<br>
-      <button type="button" name="button" onclick="show()">asdsadsadas</button>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <div class="">
+        <input type="file" id="files" name="files[]" multiple />
+        <button type="button" name="addImage" onclick="addImage()">Add Image</button>
+      </div>
+
+      <output id="list"></output>
+      <script>
+        document.getElementById('files').addEventListener('change', handleFileSelect, false);
+      </script>
     </div>
     <div class="pre-content">
       <img src="./files/images/завантаження (1).jpg" alt="" width="2000px">

@@ -27,16 +27,28 @@
         </nav>
       </div>
     </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
     <div class="content">
-      asdasdsadasdsadfdsafdsafdsafdsaf <br>
-      asdasdsadasdsadfdsafdsafdsafdsafadsf<br>
-      asdasdsadasdsadfdsafdsafdsafdsaffadsf<br>
-      asdasdsadasdsadfdsafdsafdsafdsaffadsfdsaf<br>
-      asdasdsadasdsadfdsafdsafdsafdsafdsafdsa<br>
-      asdasdsadasdsadfdsafdsafdsafdsaffsadfdsa<br>
-      asdasdsadasdsadfdsafdsafdsafdsafdsafdsadsaf<br>
-      asdasdsadasdsadfdsafdsafdsafdsaff<br>
-      <button type="button" name="button" onclick="show()">asdsadsadas</button>
+      <form action="/login" method="post" class="login-form">
+          <div class="exception">
+              <label>Username:</label>
+              <label id="wuser" class="textException">Wrong username</label>
+              <input type="text" name="username"/>
+          </div>
+          <div class="exception">
+              <label>Password:</label>
+              <label id="wpas" class="textException">Wrong password</label>
+              <input type="password" name="password"/>
+          </div>
+          <div>
+              <input class="btn btn-primary" type="submit" value="Log In"/>
+          </div>
+      </form>
     </div>
     <div class="pre-content">
       <img src="./files/images/завантаження (1).jpg" alt="" width="2000px">
