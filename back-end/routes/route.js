@@ -19,4 +19,7 @@ module.exports = function(app) {
 
     app.route( "/back-end/uploadAvatar")
       .post( controller.uploadImage);
+
+    app.route( "/back-end/getUserInfo")
+      .get( controller.getUser);
 }

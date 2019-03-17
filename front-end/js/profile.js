@@ -24,7 +24,7 @@ function handleFileSelect(evt) {
     // Only process image files.
   var span = document.createElement('span');
   var list = document.getElementById('list');
-  if (files.type.match('image.*')) {
+  if (files.type.match('image.*') &&  (files.type != "image/gif")) {
     var reader = new FileReader();
     // Closure to capture the file information.
     reader.onload = (function(theFile) {
@@ -37,7 +37,7 @@ function handleFileSelect(evt) {
     // Read in the image file as a data URL.
     reader.readAsDataURL(files);
   }else {
-    span.innerHTML = "IT is not an image ";
+    span.innerHTML = "IT is not an image";
   }
   if (list.firstChild) {
     list.removeChild(list.firstChild);
@@ -47,10 +47,7 @@ function handleFileSelect(evt) {
 
 function addImage(){
   var list = document.getElementById('list');
-  console.log(list.firstChild.firstChild);
-  console.log(list.firstChild.firstChild.getAttribute("src"));
-  console.log(list.firstChild.firstChild.getAttribute("title"));
-  if (list.firstChild) {
+  if (list.firstChild != null && list.firstChild.innerHTML != "IT is not an image") {
     $.ajax({
        url: "/back-end/uploadAvatar",
        type: "POST",
@@ -67,4 +64,18 @@ function addImage(){
        }
     });
   }
+}
+
+function getUserInfo() {
+  $.ajax({
+     url: "/back-end/getUserInfo",
+     type: "GET",
+     success: function(response) {
+       console.log(response);
+       //document.getElementById('list').insertBefore(span, null);
+     },
+     error: function(jqXHR, textStatus, errorMessage) {
+         console.log(errorMessage); // Optional
+     }
+  });
 }

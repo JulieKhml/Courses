@@ -4,6 +4,13 @@ const mysql = require('mysql');
 var async = require('async');
 var fs = require('fs');
 
+var connection = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'pets'
+});
+
 var user = {};
 exports.setSessionUserId = function( req, res ){
   console.log("setSessionUserId" + user);
@@ -42,4 +49,37 @@ exports.uploadImage = function(req, res){
       console.log('File saved.')
     });
   res.json(req.body);
+}
+
+exports.getUser = function (req, res) {
+  /*connection.getConnection(function(error, tempcount){
+    if(error){
+      tempCont.release();
+      console.log("Error");
+    }else {
+      console.log("Connected");
+      tempCont.query("SELECT * FROM Users", function functionName(error, rows, fields){
+        tempCont.release();
+        if(error) {
+          console.log("Error");
+          res.json(error);
+        } else {
+          res.json(rows);
+        }
+      });
+    }
+  });
+*/
+  var pg = require('pg');
+  pg.connect();
+  pg.connect(,
+   function(err, client, done){
+    client.query("SELECT * FROM public.'Users' ;", (err, res1) => {
+      done();
+      if (err) res.send("error: " + err);
+      var obj = res1.rows;
+      console.log(obj);
+      res.json(obj);
+    });
+  });
 }
