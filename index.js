@@ -17,21 +17,12 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
 const sessionChecker = (req, res, next) => {
-  axios({
-     method: 'GET',
-     url: '/back-end/chekUser',
-     timeout: 180000
-   })
-    .then(function (response) {
-      if(JSON.stringify(response.data)=== JSON.stringify({})){
-        res.redirect('/Login');
-      }else{
-          console.log("SessionId: " +  response.data );
-          next();
-      }
-
-    });
-
+  if(req.session.userId && req.cookies.user_sid){
+    console.log( req.session.user );
+      next();
+  } else {
+    res.redirect('/Login');
+  }
 };
 
 app.use(bodyParser.urlencoded({
@@ -68,7 +59,7 @@ app.route("/Login")
             password = req.body.password;
     if(username == "mageron")
     {
-      req.session.userId = 1;
+      req.session.userId = 1;//change here
       req.session.admin = true;
 
       //var host = location.protocol + "://" + location.hostname;
