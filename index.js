@@ -2,12 +2,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const express = require('express');
 
-const axios = require('axios');
-const baseURL = 'http://localhost:8080';
-if (typeof baseURL !== 'undefined') {
-  axios.defaults.baseURL = baseURL;
-}
-axios.defaults.port = process.env.PORT || 8080;
 
 const app = express(),
  port = process.env.PORT || 8080;
@@ -17,7 +11,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
 const sessionChecker = (req, res, next) => {
-  if(req.session.userId && req.cookies.user_sid){
+  if(req.session.user && req.cookies.user_sid){
     console.log( req.session.user );
       next();
   } else {
@@ -59,27 +53,14 @@ app.route("/Login")
             password = req.body.password;
     if(username == "mageron")
     {
-      req.session.userId = 1;//change here
-      req.session.admin = true;
+      req.session.user = {
+        userId: 1,//change here
+        username: username,
+        password: password,
+        admin: true//change here
+      };
 
-      //var host = location.protocol + "://" + location.hostname;
-      axios({
-        method: 'POST',
-        url: '/back-end/userSession',
-        timeout: 180000,
-        data: {
-          id: req.session.userId,
-          name: username,
-          password: password,
-          admin: req.session.admin
-        }
-      })
-        .then(function (response) {
-          console.log("succes user " + response.data);
-        })
-        .catch(function (error) {
-          //console.log(error);
-        });
+
       //console.log(req.session);
       res.redirect( "/Home" );
     }

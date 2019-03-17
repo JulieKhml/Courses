@@ -11,25 +11,10 @@ window.onscroll = function() {
 
 //login();
 
-var show = function() {
-  console.log("CLICKEd");
-  fetch( "/back-end/userSessionId" ).then( (response) => {
-    if ( response.status == 200 )
-    {
-      console.log(response.data);
-      response.json().then( (data) => {
-        console.log("SESSION!: " );
-        console.log(data);
-      });
-    }else {
-      console.log("session not exist");
-    }
-  });
 
-}
 var login = function() {
   if(document.getElementById('log').innerHTML === "Log in"){
-    fetch( "/back-end/chekUser" ).then( (response) => {
+    fetch("/back-end/chekUser" ).then( (response) => {
       console.log(response);
        if ( response.status == 200 )
        {
@@ -54,8 +39,7 @@ var login = function() {
         },
         error: function( req, status, err ) {
           console.log( 'something went wrong', status, err );
-        },
-        data: {}
+        }
      });
 
   }
@@ -67,7 +51,7 @@ var chackAuthorithation = function () {
      if ( response.status == 200 )
      {
        response.json().then((data) => {
-         if(JSON.stringify(data) === JSON.stringify({})){
+         if(data == null){
            document.getElementById('log').innerHTML = "Log in";
          }else{
            document.getElementById('log').innerHTML = "Log out";

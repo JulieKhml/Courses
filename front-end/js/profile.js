@@ -8,7 +8,7 @@ var chackAuthorithation = function () {
      type: "GET",
      cache: false,
      success: function(data){
-       if(JSON.stringify(data) === JSON.stringify({})){
+       if(data == null){
          document.getElementById('log').innerHTML = "Log in";
        }else{
          document.getElementById('log').innerHTML = "Log out";

@@ -11,27 +11,17 @@ var connection = mysql.createPool({
   database: 'pets'
 });
 
-var user = {};
-exports.setSessionUserId = function( req, res ){
-  console.log("setSessionUserId" + user);
-  res.json(user);
-}
-
-exports.setSessionUser = function(req, res){
-  user = req.body;
-  console.log("User: " + user);
-  res.status(200).send(req.body);
-}
-
 exports.userCheck = function(req, res){
-  console.log("userCheck: " + user);
-  res.status(200).send(user);
+  console.log("userCheck: " + req.session.user);
+  res.status(200).send(req.session.user);
 }
 
 exports.setUserNull = function(req, res){
+  //console.log("before" + req.session.userId );
+  req.session.user = null;
+  //console.log("now" + req.session.userId );
   console.log("Log out User");
-  user = req.body;
-  res.status(200).json(user);
+  res.status(200).json(req.session.user);
 }
 
 exports.uploadImage = function(req, res){
