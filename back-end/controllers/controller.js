@@ -70,16 +70,5 @@ exports.getUser = function (req, res) {
     }
   });
 */
-  var pg = require('pg');
-  pg.connect();
-  pg.connect(,
-   function(err, client, done){
-    client.query("SELECT * FROM public.'Users' ;", (err, res1) => {
-      done();
-      if (err) res.send("error: " + err);
-      var obj = res1.rows;
-      console.log(obj);
-      res.json(obj);
-    });
-  });
+
 }
