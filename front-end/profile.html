@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <div id="info" class="mt-5">
+    <div  v-cloak id="info" class="mt-5">
       <div  class="row" >
         <div  class="col-md-1">
         </div>
@@ -108,7 +108,7 @@
       </div>
     </div>
 
-    <div v-if="change" id="app" class="row">
+    <div v-if="change" v-cloak id="app" class="row">
 
       <div  class="col-md-1">
       </div>
@@ -178,7 +178,7 @@
       </div>
     </div>
 
-    <div id="listOfPets" class="">
+    <div v-cloak id="listOfPets" class="">
       <div v-for="(item, index) in list" class="row mt-5">
         <div  class="col-md-1">
         </div>
@@ -262,7 +262,7 @@
       </div>
     </div>
 
-    <div id="listOfPost" class="">
+    <div v-cloak id="listOfPost" class="">
       <div v-for="(item, index) in id_post" class="row mt-5">
         <div  class="col-md-3">
         </div>

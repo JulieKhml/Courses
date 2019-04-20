@@ -36,3 +36,6 @@
   position: relative;
   top: -1px;
 }
+
+
+[v-cloak] { display: none; }
