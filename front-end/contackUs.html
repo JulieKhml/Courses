@@ -2,7 +2,6 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -10,6 +9,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <script type="text/javascript" src="js/JQuery.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="./js/contact.js"></script>
     <title></title>
   </head>
   <body>
@@ -40,30 +40,56 @@
       </div>
     </nav>
 
+
     <div class="p-5 bg-warning" >
       <div class="text-center" >
-        <b><font size="6" style="color: white;">АВТОРИЗАЦІЯ</font></b>
+        <b><font size="6" style="color: white;">КОНТАКТИ</font></b>
       </div>
     </div>
 
-    <div class="row" style="margin-top: 260px;">
-      <div class="col-md-4" ></div>
-      <div class="col-md-4" >
-        <form action="/login" method="post" class="login-form">
+    <div class="row" style="margin-top: 7%;">
+      <div class="col-md-1" ></div>
+      <div class="col-md-3" >
+          <div class="text-left">
+            Якщо у вас виникають питання
+          </div>
+          <div class="text-left">
+            - звертайтеся:
+          </div>
+          <div class="text-left">
+            <img src="https://image.flaticon.com/icons/svg/321/321817.svg" alt="telephone" class="mr-2">
+            0000000000000000
+          </div>
+          <div class="text-left">
+            <img src="https://image.flaticon.com/icons/svg/254/254080.svg" alt="email" class="mr-2">
+            емейл
+          </div>
+      </div>
+      <div class="col-md-6" >
+        <div class="text-left">
+          <form class="" action="Contact" name="contactForm" method="post" onsubmit="return validate()">
             <div class="form-group">
-                <span for="username">Логін:</span>
-                <input type="text" class="form-control" name="username" id="username" maxlength="25" placeholder="Введіть логін"/>
-                <span id="wuser" class="textException">Не вірний логін</span>
+              <label for="exampleInputName1">Ім'я</label>
+              <input type="text" class="form-control" name="exampleInputName1" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Введіть Ім'я">
             </div>
             <div class="form-group">
-                <span for="password">Пароль:</span>
-                <input type="password" class="form-control" name="password" id="password"  maxlength="25"  placeholder="Введіть пароль"/>
-                <span id="wpas" class="textException">Не вірний пароль</span>
+              <label for="exampleInputPhone1">Телефон</label>
+              <input type="tel" pattern="[0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}" class="form-control" name="exampleInputPhone1"  id="exampleInputPhone1" aria-describedby="phoneHelp" placeholder="Введіть телефон">
+              <small id="phoneHelp" class="form-text text-muted">Ми ніколи не поділимось вашим номером телефону з кимось іншим.</small>
+              <span>Приклад XXX XXX XX XX</span>
             </div>
-            <div>
-                <input class="btn btn-primary" type="submit" value="Log In"/>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Емейл</label>
+              <input type="email" class="form-control" name="exampleInputEmail1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введіть емейл">
+              <small id="emailHelp" class="form-text text-muted">Ми ніколи не поділимось вашим емейлом з кимось іншим.</small>
             </div>
-        </form>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Коментар</label>
+              <textarea  type="email" class="form-control" name="exampleFormControlTextarea1" id="exampleFormControlTextarea1" placeholder="Введіть коментар" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Надіслати</button>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -104,6 +130,5 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="./js/login.js"></script>
   </body>
 </html>

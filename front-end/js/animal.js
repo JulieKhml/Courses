@@ -4,35 +4,11 @@ window.onload = function() {
   setPets();
   setListOfTypeOfColorsOfAnimals();
   setListOfPets();
-  setlistOfPost();
-  setTimeout(function() {
-    $.ajax({
-       url: "/back-end/getAllPostOfuser",
-       type: "GET",
-       success: function (data) {
-         if(listOfPost){
-           listOfPost.id_post = data;
-         }
-         console.log(data);
-         console.log("hi");
-     }
-   });
-  }, 300);
 }
 var appPets;
 var app2;
 var app;
 var listOfPets;
-var listOfPost;
-
-var setlistOfPost = function() {
-  listOfPost = new Vue({
-   el: '#listOfPost',
-   data: {
-     id_post: []
-   }
- });
-}
 
 var setListOfPets = function(){
   listOfPets = new Vue({
@@ -43,20 +19,7 @@ var setListOfPets = function(){
      color: []
    },
    methods: {
-     deleteRow(index){
-       $.ajax({
-          url: "/back-end/deleteAnimal",
-          type: "POST",
-          data: {
-            id_animal: listOfPets.list[index].id_animal
-          },
-          success: function (data) {
 
-           listOfPets.list.splice(index, 1);
-           alert("Видалено");
-        }
-      });
-     }
    }
  });
   $.ajax({
@@ -68,9 +31,10 @@ var setListOfPets = function(){
        listOfPets.list.forEach(function(item, index){
 
          listOfPets.typeOfAnimal.push(appPets.idOfColour[parseInt(item.id_type_of_animal)]);
-
        });
 
+       console.log(listOfPets.color);
+       console.log(listOfPets.typeOfAnimal);
      }
    });
 }
@@ -141,7 +105,33 @@ var setPets = function () {
         }
       },
       addPets: function(){
-        window.location.href = "/Animal";
+        if(this.nameOfPets != ''){
+          if(this.typeOfAnimal != -1){
+            $.ajax({
+               url: "/back-end/addPetsToUser",
+               type: "POST",
+               data: {
+                 nameOfPets: appPets.nameOfPets,
+                 gender: appPets.gender,
+                 chipped: appPets.chipped,
+                 collar: appPets.collar,
+                 imageOfPets: appPets.imageOfPets,
+                 titleOfPets: appPets.titleOfPets,
+                 typeOfAnimal: appPets.typeOfAnimal
+               },
+               success: function () {
+                 appPets.nameOfPets = '';
+                 appPets.imageOfPets = '';
+                 appPets.titleOfPets = '';
+                 alert("Додано");
+               }
+             });
+          }else {
+            alert("Виберіть тип тварини'");
+          }
+        }else {
+          alert("Введіть ім'я тварини'");
+        }
       },
       onChange(event) {
         this.typeOfAnimal = parseInt(event.target.value);
@@ -157,6 +147,15 @@ var setPets = function () {
          appPets.colors = data.Color;
          appPets.type_of_animals = data.Type_of_animals;
          appPets.listOfTypeOfAnimalOfColor = data.Type_of_animals_of_colour;
+         //type_of_animals[item - 1].id_type_of_animal
+         var sel = document.getElementById('typeAnimal');
+
+         appPets.type_of_animals.forEach(function(item, index) {
+           var opt = document.createElement('option');
+           opt.appendChild(document.createTextNode(item.name_type));
+           opt.value = item.id_type_of_animal;
+           sel.appendChild(opt);
+         });
        }
      }
    });
@@ -173,7 +172,6 @@ var setUserInfo = function(){
      cache: false,
      success: function(data){
        if(data != null){
-         document.getElementById("pac-input-from").value = data.address;
 
          var app1 = new Vue({
            el: '#app1',
@@ -183,18 +181,18 @@ var setUserInfo = function(){
          });
         info = {
           updatedEmail: data.email,
-          updatedLastName: data.last_name,
-          updatedFirstName: data.first_name,
+          updatedLastName: data.lastName,
+          updatedFirstName: data.firstName,
           address: data.address,
-          src: data.src,
+          src: "data:image/jpeg;base64," + data.src.toString('base64'),
           title: data.title.split("/")[1],
         }
         info2 = {
           updatedEmail: data.email,
-          updatedLastName: data.last_name,
-          updatedFirstName: data.first_name,
+          updatedLastName: data.lastName,
+          updatedFirstName: data.firstName,
           address: data.address,
-          src: data.src,
+          src: "data:image/jpeg;base64," + data.src.toString('base64'),
           title: data.title.split("/")[1],
         }
 
@@ -228,6 +226,7 @@ var setUserInfo = function(){
               }
             }
          });
+
        }
      }
    });
@@ -248,24 +247,24 @@ var chackAuthorithation = function () {
    });
 }
 
-showMap = function () {
-    if(app){
-      app.change = true;
-      setTimeout(function () {
-        initMap();
-        },800);
-    }
+setMap = function () {
+    document.getElementById("maps").style.visibility = 'visible';
+    document.getElementById("maps").style.position = 'relative';
 }
 
 upDate = function() {
+  document.getElementById("maps").style.visibility = 'hidden';
+  document.getElementById("maps").style.position = 'absolute';
+
+  var list = document.getElementById('list');
   var src;
   var title;
   if(list.firstChild == null){
     src = "";
     title = "";
   }else {
-    src = app.user.src;
-    title = app.user.title;
+    src = list.firstChild.firstChild.src;
+    title = list.firstChild.firstChild.title;
   }
   var data = {
     src: src,
@@ -280,22 +279,7 @@ upDate = function() {
      type: "POST",
      cache: false,
      success: function(data){
-       app.user.updatedEmail = data.email;
-       app.user.updatedLastName = data.last_name;
-       app.user.updatedFirstName = data.first_name;
-       app.user.address = data.address;
-       app.user.src = data.src;
-       app.user.title = data.title.split("/")[1];
-
-       app2.user.updatedEmail = data.email;
-       app2.user.updatedLastName = data.last_name;
-       app2.user.updatedFirstName = data.first_name;
-       app2.user.address = data.address;
-       app2.user.src = data.src;
-       app2.user.title = data.title.split("/")[1];
-       if(app){
-         app.change = false;
-       }
+       setUserInfo();
      },
      data: data
    });
@@ -305,7 +289,5 @@ deleteAvatar = function(){
   var list = document.getElementById('list');
   if (list.firstChild.firstChild) {
     list.firstChild.firstChild.src = "";
-    app.user.title = "";
-    app.user.src = "";
   }
 }

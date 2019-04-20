@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <script type="text/javascript" src="js/JQuery.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="./js/donate.js"></script>
     <title></title>
   </head>
   <body>
@@ -29,7 +30,7 @@
           <li class="nav-item">
             <a class="nav-link disabled" href="Profile">Профіль</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link disabled" href="Donate">Благодійність</a>
           </li>
         </ul>
@@ -42,29 +43,32 @@
 
     <div class="p-5 bg-warning" >
       <div class="text-center" >
-        <b><font size="6" style="color: white;">АВТОРИЗАЦІЯ</font></b>
+        <b><font size="6" style="color: white;">БЛАГОДІЙНІСТЬ</font></b>
       </div>
     </div>
 
-    <div class="row" style="margin-top: 260px;">
-      <div class="col-md-4" ></div>
-      <div class="col-md-4" >
-        <form action="/login" method="post" class="login-form">
-            <div class="form-group">
-                <span for="username">Логін:</span>
-                <input type="text" class="form-control" name="username" id="username" maxlength="25" placeholder="Введіть логін"/>
-                <span id="wuser" class="textException">Не вірний логін</span>
-            </div>
-            <div class="form-group">
-                <span for="password">Пароль:</span>
-                <input type="password" class="form-control" name="password" id="password"  maxlength="25"  placeholder="Введіть пароль"/>
-                <span id="wpas" class="textException">Не вірний пароль</span>
-            </div>
-            <div>
-                <input class="btn btn-primary" type="submit" value="Log In"/>
-            </div>
-        </form>
+    <div class="row" style="height: 450px; margin-top: 150px;">
+      <div class="col-md-5"></div>
+      <div class="col-md-3">
+        <div class="text-center">
+          TEXT
+        </div>
+        <div class="input-group">
+          <span>Сума: </span>
+          <input type="number" id="amount" class="form-control ml-2" min="1" value="1" style="width: 40%;" aria-label="Amount (to the nearest dollar)">
+          <div class="input-group-append">
+            <span class="input-group-text">грн</span>
+          </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 20px;">
+          <div id="container"></div>
+        </div>
       </div>
+      <script async
+        src="https://pay.google.com/gp/p/js/pay.js"
+        onload="onGooglePayLoaded()">
+      </script>
     </div>
 
     <div class="row mt-5" style="background-color: grey; padding: 10px;">
@@ -104,6 +108,5 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="./js/login.js"></script>
   </body>
 </html>

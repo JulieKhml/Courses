@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/JulieKhml/Courses.git"
   },
+  "browser": {
+    "vue": "vue/dist/vue.common"
+  },
   "author": "Julie Khmil",
   "license": "ISC",
   "bugs": {
@@ -26,7 +29,10 @@
     "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "mysql": "^2.16.0",
-    "pg": "^7.9.0"
+    "nodemailer": "^6.1.0",
+    "password-hash": "^1.2.2",
+    "pg": "^7.9.0",
+    "vue": "^2.6.10"
   },
   "devDependencies": {}
 }

@@ -1,7 +1,8 @@
 var prevScrollpos = window.pageYOffset;
+
 window.onscroll = function() {
   var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > 490) {
+  if (prevScrollpos > 600) {
     document.getElementById("header").style.backgroundColor  = "black";
   } else {
     document.getElementById("header").style.backgroundColor  = "inherit";
@@ -13,20 +14,19 @@ window.onscroll = function() {
 
 
 var login = function() {
-  if(document.getElementById('log').innerHTML === "Log in"){
-    fetch("/back-end/chekUser" ).then( (response) => {
-      console.log(response);
-       if ( response.status == 200 )
-       {
-         response.json().then((data) => {
-           if(JSON.stringify(data) === JSON.stringify({})){
-             window.location.href = "Login";
-           }else{
-             document.getElementById('log').innerHTML = "Log out";
-           }
-         });
-       }
-     });
+  if(document.getElementById('log').innerHTML === "Вхід"){
+     $.ajax({
+        url: "/back-end/chekUser",
+        type: "GET",
+        cache: false,
+        success: function(data){
+          if(data == null){
+            window.location.href = "Login";
+          }else{
+            document.getElementById('log').innerHTML = "Вихід";
+          }
+        }
+      });
   }else {
     $.ajax({
        type: "POST",
@@ -34,7 +34,7 @@ var login = function() {
        dataType: "json",
        success: function( resp ) {
          console.log("User loged out");
-         document.getElementById('log').innerHTML = "Log in";
+         document.getElementById('log').innerHTML = "Вхід";
          window.location.href = "Home";
         },
         error: function( req, status, err ) {
@@ -46,20 +46,22 @@ var login = function() {
 }
 
 var chackAuthorithation = function () {
-  fetch( "/back-end/chekUser" ).then( (response) => {
-    console.log(response);
-     if ( response.status == 200 )
-     {
-       response.json().then((data) => {
-         if(data == null){
-           document.getElementById('log').innerHTML = "Log in";
-         }else{
-           document.getElementById('log').innerHTML = "Log out";
-         }
-       });
+  $.ajax({
+     url: "/back-end/chekUser",
+     type: "GET",
+     cache: false,
+     success: function(data){
+       if(data == null){
+         document.getElementById('log').innerHTML = "Вхід";
+       }else{
+         document.getElementById('log').innerHTML = "Вихід";
+       }
      }
    });
 }
+
+
+
 window.onload = function() {
   chackAuthorithation();
 }

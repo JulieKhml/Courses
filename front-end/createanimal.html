@@ -2,7 +2,6 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -10,6 +9,9 @@
     <link rel="stylesheet" href="./css/style.css">
     <script type="text/javascript" src="js/JQuery.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="js/animal.js"></script>
+    <script type="text/javascript" src="js/addimage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <title></title>
   </head>
   <body>
@@ -39,31 +41,69 @@
 
       </div>
     </nav>
-
     <div class="p-5 bg-warning" >
       <div class="text-center" >
-        <b><font size="6" style="color: white;">АВТОРИЗАЦІЯ</font></b>
+        <b><font size="6" style="color: white;">СТВОРИТИ ТВАРИНУ</font></b>
       </div>
     </div>
 
-    <div class="row" style="margin-top: 260px;">
-      <div class="col-md-4" ></div>
-      <div class="col-md-4" >
-        <form action="/login" method="post" class="login-form">
-            <div class="form-group">
-                <span for="username">Логін:</span>
-                <input type="text" class="form-control" name="username" id="username" maxlength="25" placeholder="Введіть логін"/>
-                <span id="wuser" class="textException">Не вірний логін</span>
-            </div>
-            <div class="form-group">
-                <span for="password">Пароль:</span>
-                <input type="password" class="form-control" name="password" id="password"  maxlength="25"  placeholder="Введіть пароль"/>
-                <span id="wpas" class="textException">Не вірний пароль</span>
-            </div>
-            <div>
-                <input class="btn btn-primary" type="submit" value="Log In"/>
-            </div>
-        </form>
+    <div id="pets" class="row mt-5" style="min-height: 600px;">
+      <div class="col-md-2"></div>
+      <div class="col-md-8 border">
+        <input v-model="nameOfPets" class="form-control mt-3" placeholder="Введіть ім'я тварини">
+        <div class="">
+          <span>Стать</span>
+          <select class="form-control" v-model="gender">
+            <option>Ч</option>
+            <option>Ж</option>
+          </select>
+        </div>
+        <div class="">
+          <span>Чи має чіп?</span>
+          <div class="radio-inline">
+            <input type="radio" value="Так" v-model="chipped">
+            <label>Так</label>
+            <input type="radio" value="Ні" v-model="chipped">
+            <label>Ні</label>
+            <input type="radio" value="Не знаю" v-model="chipped">
+            <label>Не знаю</label>
+          </div>
+        </div>
+        <div class="input-group-text mt-2">
+          <input type="checkbox" v-model="collar">
+          <span>Чи має ошейнік?</span>
+        </div>
+        <div class="mt-3">
+          <div class="">
+            <button class="form-control btn btn-light" type="button" id="changeImage" onclick="addImage()">Виберіть фото</button>
+            <input type="file" id="files" @change="previewImage" />
+          </div>
+          <div class="text-center">
+            <output id="list">
+              <span>
+                <img class=" img-thumbnail" style="width: 300px; height: 300px;" v-if="imageOfPets" v-bind:src="imageOfPets">
+              </span>
+              <span id="infoAboutPhotoPets"></span>
+            </output>
+          </div>
+        </div>
+        <div class="mt-3">
+          <span>Виберіть тип тварини</span>
+          <select class="form-control" id="typeAnimal" v-model="typeOfAnimal"  @change="onChange($event)">
+          </select>
+
+          <div v-for="item in idOfType_OfAnimals" class="">
+            <ul v-if="type_of_animals[item - 1].id_type_of_animal === typeOfAnimal">
+              <li v-for="(color, index) in idOfColour[item]" >
+                <span>{{ colors[color].name }}</span>
+                <img  class=" img-thumbnail rounded-circle" style="width: 30px; height: 30px;" v-bind:src="colors[color].src" :title="colors[color].image" :alt="colors[color].name">
+              </li>
+            </ul>
+           </div>
+        </div>
+        <div class="text-center mt-3">
+          <button type="button" class="form-control btn btn-secondary" name="button" v-on:click="addPets">додати</button>
+        </div>
       </div>
     </div>
 
@@ -104,6 +144,8 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="./js/login.js"></script>
+    <script>
+      document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    </script>
   </body>
 </html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./files/images/logo.jpg">
+    <link rel="stylesheet" href="./css/style.css">
+    <script type="text/javascript" src="js/JQuery.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title></title>
+  </head>
+  <body>
+    <nav  id="header" class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="Home"><img style="width: 300px; height: 80px;" src="./files/images/logobtn.png" alt="logo" ></a>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="CreatePosts">Створити пост</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="Posts">Тварини</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="Advice">Корисні поради</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="Profile">Профіль</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="Donate">Благодійність</a>
+          </li>
+        </ul>
+
+        <button class="btn btn-outline-success my-2 my-sm-0" onclick="login()" id ="log" type="submit" style="margin-right: 10px;">Вхід</button>
+        <button class="btn btn btn-secondary my-2 my-sm-0" onclick="window.location.href='/SignIn'" id ="log" type="submit">Реєстрація</button>
+
+      </div>
+    </nav>
+
+
+    <div class="p-5 bg-warning" >
+      <div class="text-center" >
+        <b><font size="6" style="color: white;">ТВАРИНИ</font></b>
+      </div>
+    </div>
+    <div class="row mt-5 mb-5">
+      <div class="col-md-2" > </div>
+      <div class="col-md-3" >
+        <button type="button" class="btn btn-secondary w-75" value="знайшли тваринку" onclick="setTypePostOnClick(this)">Знайдені</button>
+      </div>
+      <div class="col-md-2" > </div>
+      <div class="col-md-3" >
+        <button type="button" class="btn btn-secondary w-75" value="загубили тваринку" onclick="setTypePostOnClick(this)">Загублені</button>
+      </div>
+    </div>
+    <div class="row mt-5 mb-5">
+      <div class="col-md-1" > </div>
+
+      <div class="col-md-2" >Вибрати тип тварини</div>
+      <div class="col-md-1" >
+        <button type="button" class="btn btn-secondary" value="собака"  style="background-image: url('https://image.flaticon.com/icons/svg/194/194177.svg'); background-size: 100%; width: 40px; height: 40px;" onclick="setTypeAnimalOnClick(this)"></button>
+      </div>
+      <div class="col-md-1" >
+        <button type="button" class="btn btn-secondary" value="кот" style="background-image: url('https://image.flaticon.com/icons/svg/437/437500.svg'); background-size: 100%; width: 40px; height: 40px;" onclick="setTypeAnimalOnClick(this)"></button>
+      </div>
+      <div class="col-md-1" >
+        <button type="button" class="btn btn-secondary" value="кролик" style="background: url('https://image.flaticon.com/icons/svg/1702/1702853.svg'); background-size: 100%; width: 40px; height: 40px;" onclick="setTypeAnimalOnClick(this)"></button>
+      </div>
+      <div class="col-md-1" >
+        <button type="button" class="btn btn-secondary" value="папуга" style="background: url('https://image.flaticon.com/icons/svg/1477/1477931.svg'); background-size: 100%; width: 40px; height: 40px;" onclick="setTypeAnimalOnClick(this)"></button>
+      </div>
+      <div class="col-md-1" >
+        <button type="button" class="btn btn-secondary" value="тхір" style="background: url('https://www.flaticon.com/premium-icon/icons/svg/523/523533.svg'); background-size: 100%; width: 40px; height: 40px;" onclick="setTypeAnimalOnClick(this)"></button>
+      </div>
+      <div class="col-md-1" >
+        <button type="button" class="btn btn-secondary" value="черепаха" style="background: url('https://image.flaticon.com/icons/svg/1650/1650608.svg'); background-size: 100%; width: 40px; height: 40px;" onclick="setTypeAnimalOnClick(this)"></button>
+      </div>
+      <div class="col-md-1" >
+        <button type="button" class="btn btn-secondary" value="інша категорія" style="background: url('https://image.flaticon.com/icons/svg/25/25333.svg'); background-size: 100%; width: 40px; height: 40px;" onclick="setTypeAnimalOnClick(this)"></button>
+      </div>
+    </div>
+
+<div id="list_of_post" v-if="post" class="">
+  <div class="row ml-2 " v-for="(item, index) in filterTypeOfPost" style="margin-bottom: 50px;">
+    <div  v-for="(item1, index1) in filterTypeOfanimal" style="min-height: 630px;" v-if="item1.type_of_post === item.id_type_of_post" class="col-md-5 border ml-5 w-40" >
+
+      <div class="row ml-2 mt-5">
+        <div class="card w-100 mr-4">
+          <div class="card-header" >
+            {{item1.title}}
+          </div>
+          <div class="card-body">
+
+            <div v-if="JSON.stringify(item1.animal) != JSON.stringify({})" >
+              <h3>Ім'я: {{item1.animal.name }}</h3>
+              <h4>Тип тварини : {{item1.animal.name_type }}</h4>
+              <span v-if="item1.animal.chipped === 'Так'">Має чіп</span>
+              <span v-if="item1.animal.chipped === 'Ні'">Не має чіпу</span>
+              <span v-if="item1.animal.chipped === 'Не знаю'">Немає інформації про наявність чіпу</span><br>
+              <span v-if="item1.animal.collar === true">Має ошейнік</span>
+              <span v-if="item1.animal.collar === false">Не має ошейніку</span><br>
+              <img v-if="item1.animal.src != ''" v-bind:src="item1.animal.src" class="img-thumbnail" style="width: 150px; height: 150px;" :title="item1.animal.photo">
+
+              <ul class="list-inline">
+                <li v-for="(item5, index5) in post.color_ofType" v-if="item1.animal.id_type_of_animal === item5.id_type_of_animal" class="list-inline-item">
+                  <span>{{ item5.name }}</span>
+                  <img class="rounded border border-dark" style="width: 30px; height: 30px;" v-bind:src="item5.src" :title="item5.image" :alt="item5.name" >
+                </li>
+              </ul>
+            </div>
+            <span>Приблизний час</span><input type="datetime-local" name="" class="form-control" readOnly :value="item1.time_at.substring(0, item1.time_at.length - 5)">
+
+            <a class="btn btn-secondary mt-5 " v-bind:href="'/Post?id=' + item1.id_post" role="button">перейти до посту</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="row mt-5" style="background-color: grey; padding: 10px;">
+      <div class="col-md-1"></div>
+
+      <div class="col-md-7">
+        <div class="text-left">
+          <a class="btn btn-secondary" style="width: 150px;"  href="/Policy">
+            Умови і політики
+          </a>
+        </div>
+        <div style="margin-top: 10px; " class="text-left">
+          <a class="btn btn-secondary" style="width: 150px;" href="/Contact">
+            Наші контакти
+          </a>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="text-right mt-3">
+          <a href="https://www.facebook.com/">
+            <img class="img-circle" width="40" height="40" src="https://image.flaticon.com/icons/png/128/270/270793.png" />
+          </a>
+          <a href="https://twitter.com/">
+            <img class="img-circle" width="40" height="40" src="https://image.flaticon.com/icons/png/128/270/270826.png" />
+          </a>
+          <a href="https://www.instagram.com/">
+            <img class="img-circle" width="40" height="40" src="https://image.flaticon.com/icons/svg/1409/1409946.svg" />
+          </a>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="text-left">
+          2019
+        </div>
+        <div class="text-left">
+          Адреса реєстрації організації
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

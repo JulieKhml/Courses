@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="shortcut icon" href="./files/images/logo.jpg">
+    <link rel="stylesheet" href="./css/style.css">
+    <script type="text/javascript" src="js/JQuery.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="js/adminMenu.js"></script>
+    <script type="text/javascript" src="js/addimage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title></title>
+  </head>
+  <body>
+    <nav  id="header" class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="Home"><img style="width: 300px; height: 80px;" src="./files/images/logobtn.png" alt="logo" ></a>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="CreatePosts">Створити пост</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Posts">Тварини</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="Advice">Корисні поради</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="Profile">Профіль</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="Donate">Благодійність</a>
+          </li>
+        </ul>
+
+        <button class="btn btn-outline-success my-2 my-sm-0" onclick="login()" id ="log" type="submit" style="margin-right: 10px;">Вхід</button>
+        <button class="btn btn btn-secondary my-2 my-sm-0" onclick="window.location.href='/SignIn'" id ="log" type="submit">Реєстрація</button>
+
+      </div>
+    </nav>
+    <div class="p-5 bg-warning" >
+      <div class="text-center" >
+        <b><font size="6" style="color: white;">АДМІН ПАНЕЛЬ</font></b>
+      </div>
+    </div>
+
+    <div id="listOfColours" class="">
+      <div class="row mt-5">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <div class="text-center" >
+            <h4>Додати колір</h4>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="text-center" >
+            <h4>Назва</h4>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <input class="form-control" maxlength="25" type="text" id="nameOfColour" >
+        </div>
+        <div class="col-md-1">
+          <div class="text-center" >
+            <h4>Фото</h4>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <output  id="list">
+            <span v-if="src">
+              <img class="rounded border border-dark mt-2" style="width: 30px; height: 30px;" v-bind:src="src">
+            </span>
+            <span id="infoAboutImage"></span>
+          </output>
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-secondary form-control" id="changeImage" onclick="addImage()">Вибрати</button>
+            <input type="file" id="files" @change="previewImage"/>
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-secondary form-control" @click="addColour()">Додати в базу</button>
+        </div>
+      </div>
+
+      <div class="row mt-2" v-for="(item, index) in listOfColors">
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+          <img class="rounded border border-dark" style="width: 30px; height: 30px;" v-bind:src="item.src" :title="item.image" :alt="item.name">
+        </div>
+        <div class="col-md-1">
+          <div class="text-right" >
+            <h5>Назва:</h5>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-left" >
+            <span>{{ item.name }}</span>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-secondary form-control" @click="deleteRow(index)">Видалити</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="listOfTypesOfAnimal" class="">
+      <div class="row mt-5 mb-3">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <div class="text-center" >
+            <h4>Додати тип тварини</h4>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="text-center" >
+            <h4>Назва</h4>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <input class="form-control" maxlength="25" type="text" id="nameOfType" >
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-secondary form-control" @click="addRow()">Додати в базу</button>
+        </div>
+      </div>
+
+      <div class="row mt-2" v-for="(item, index) in listOfTypesOfAnimal">
+        <div class="col-md-2"></div>
+        <div class="col-md-1">
+          <div class="text-right" >
+            <h5>Назва:</h5>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-left" >
+            <span>{{ item.name_type }}</span>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-secondary form-control" @click="deleteRow(index)">Видалити</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="listOfTypeOfAnimalOfColor" class="">
+      <div class="row mt-5 mb-3">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <div class="text-center" >
+            <h4>Додати до типу тварини кольори</h4>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="text-center" >
+            <h4>Тип тварини</h4>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="row mt-2 ml-2" v-for="(item, index) in type_of_animals">
+            <input type="radio" class="mt-2 mr-2" :value="item.id_type_of_animal" v-model="checkedType_of_animal">
+            <span>{{ item.name_type }}</span>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="text-center" >
+            <h4>Кольори</h4>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="row mt-2 ml-2" v-for="(item, index) in colors">
+            <input type="checkbox" class="mt-2" :value="item.id_colour" v-model="checkedColors">
+            <img class="rounded border border-dark ml-2 mr-2" style="width: 30px; height: 30px;" v-bind:src="item.src" :title="item.image" :alt="item.name">
+            <span>{{ item.name }}</span>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-secondary form-control" @click="addColoursToTypeOfAnimal()">Додати в базу</button>
+        </div>
+      </div>
+
+      <div class="row mt-5" v-for="item in idOfType_OfAnimals">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <div class="text-right">
+            <h4>{{type_of_animals[item - 1].name_type}}</h4>
+          </div>
+        </div>
+        <div class="col-md-8 border border-secondary">
+          <div class="row mt-2" v-for="(color, index) in idOfColour[item]">
+            <div class="col-md-3">
+              <img class="rounded border border-dark" style="width: 30px; height: 30px;" v-bind:src="colors[color].src" :title="colors[color].image" :alt="colors[color].name">
+              <span>{{ colors[color].name }}</span>
+            </div>
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-3">
+              <button class="btn btn-secondary form-control mb-2" @click="deleteItem(item, color, index)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+    <div id="typeOfPosts" class="rows">
+      <div class="row mt-5 mb-3">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <div class="text-center" >
+            <h4>Додати тип постів</h4>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="text-center" >
+            <h4>Назва</h4>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <input class="form-control" maxlength="25" type="text" id="nameTypeOfPost" >
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-secondary form-control" @click="addRow()">Додати в базу</button>
+        </div>
+      </div>
+
+      <div class="row mt-2" v-for="(item, index) in list">
+        <div class="col-md-2"></div>
+        <div class="col-md-1">
+          <div class="text-right" >
+            <h5>Назва:</h5>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-left" >
+            <span>{{ item.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mt-5" style="background-color: grey; padding: 10px;">
+      <div class="col-md-1"></div>
+
+      <div class="col-md-7">
+        <div class="text-left">
+          <a class="btn btn-secondary" style="width: 150px;"  href="/Policy">
+            Умови і політики
+          </a>
+        </div>
+        <div style="margin-top: 10px; " class="text-left">
+          <a class="btn btn-secondary" style="width: 150px;" href="/Contact">
+            Наші контакти
+          </a>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="text-right mt-3">
+          <a href="https://www.facebook.com/">
+            <img class="img-circle" width="40" height="40" src="https://image.flaticon.com/icons/png/128/270/270793.png" />
+          </a>
+          <a href="https://twitter.com/">
+            <img class="img-circle" width="40" height="40" src="https://image.flaticon.com/icons/png/128/270/270826.png" />
+          </a>
+          <a href="https://www.instagram.com/">
+            <img class="img-circle" width="40" height="40" src="https://image.flaticon.com/icons/svg/1409/1409946.svg" />
+          </a>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="text-left">
+          2019
+        </div>
+        <div class="text-left">
+          Адреса реєстрації організації
+        </div>
+      </div>
+    </div>
+    <script>
+      document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    </script>
+
+    </body>
+</html>

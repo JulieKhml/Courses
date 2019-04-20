@@ -2,11 +2,13 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <link rel="shortcut icon" href="./files/images/logo.jpg">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./css/style.css">
     <script type="text/javascript" src="js/JQuery.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
@@ -23,7 +25,7 @@
           <li class="nav-item">
             <a class="nav-link" href="Posts">Тварини</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link disabled" href="Advice">Корисні поради</a>
           </li>
           <li class="nav-item">
@@ -42,28 +44,49 @@
 
     <div class="p-5 bg-warning" >
       <div class="text-center" >
-        <b><font size="6" style="color: white;">АВТОРИЗАЦІЯ</font></b>
+        <b><font size="6" style="color: white;">КОРИСНІ ПОРАДИ</font></b>
       </div>
     </div>
 
-    <div class="row" style="margin-top: 260px;">
-      <div class="col-md-4" ></div>
-      <div class="col-md-4" >
-        <form action="/login" method="post" class="login-form">
-            <div class="form-group">
-                <span for="username">Логін:</span>
-                <input type="text" class="form-control" name="username" id="username" maxlength="25" placeholder="Введіть логін"/>
-                <span id="wuser" class="textException">Не вірний логін</span>
-            </div>
-            <div class="form-group">
-                <span for="password">Пароль:</span>
-                <input type="password" class="form-control" name="password" id="password"  maxlength="25"  placeholder="Введіть пароль"/>
-                <span id="wpas" class="textException">Не вірний пароль</span>
-            </div>
-            <div>
-                <input class="btn btn-primary" type="submit" value="Log In"/>
-            </div>
-        </form>
+    <div class="row" style="min-height: 550px; margin-top: 40px;" class="">
+      <div class="col-md-1" > </div>
+      <div class="col-md-10" >
+        <div class="text-left" style="margin-top: 20px;">
+          <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#first">Заголовок 1</button>
+          <div id="first" class="collapse"  style="margin-top: 20px;">
+            Текст, який вилазить при клацанні на заголовок 1
+          </div>
+        </div>
+        <div class="text-left" style="margin-top: 20px;">
+          <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#second">Заголовок 2</button>
+          <div id="second" class="collapse"  style="margin-top: 20px;">
+            Текст, який вилазить при клацанні на заголовок 2
+          </div>
+        </div>
+        <div class="text-left" style="margin-top: 20px;">
+          <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#third">Заголовок 3</button>
+          <div id="third" class="collapse"  style="margin-top: 20px;">
+            Текст, який вилазить при клацанні на заголовок 3
+          </div>
+        </div>
+        <div class="text-left" style="margin-top: 20px;">
+          <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#fourth">Заголовок 4</button>
+          <div id="fourth" class="collapse"  style="margin-top: 20px;">
+            Текст, який вилазить при клацанні на заголовок 4
+          </div>
+        </div>
+        <div class="text-left" style="margin-top: 20px;">
+          <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#fiveth">Заголовок 5</button>
+          <div id="fiveth" class="collapse"  style="margin-top: 20px;">
+            Текст, який вилазить при клацанні на заголовок 5
+          </div>
+        </div>
+        <div class="text-left" style="margin-top: 20px; margin-bottom: 40px;">
+          <button type="button" class="btn btn-light" data-toggle="collapse" data-target="#sixth">Заголовок 6</button>
+          <div id="sixth" class="collapse"  style="margin-top: 20px;">
+            Текст, який вилазить при клацанні на заголовок 6
+          </div>
+        </div>
       </div>
     </div>
 
@@ -104,6 +127,5 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="./js/login.js"></script>
   </body>
 </html>
